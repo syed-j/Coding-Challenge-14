@@ -28,3 +28,21 @@ async function fetchTickets() {
 }
 
 fetchTickets();
+function displayTickets(tickets) {
+    const ticketContainer = document.getElementById('ticket-container');
+    ticketContainer.innerHTML = ''; // Clear any existing content
+
+    tickets.forEach(ticket => {
+        const ticketElement = document.createElement('div');
+        ticketElement.classList.add('ticket');
+        
+        ticketElement.innerHTML = `
+            <h3>Ticket ID: ${ticket.id}</h3>
+            <p><strong>Customer Name:</strong> Customer ${ticket.userId}</p>
+            <p><strong>Issue Description:</strong> ${ticket.title}</p>
+            <p><strong>Details:</strong> ${ticket.body}</p>
+        `;
+
+        ticketContainer.appendChild(ticketElement);
+    });
+}
