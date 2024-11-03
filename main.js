@@ -46,3 +46,29 @@ function displayTickets(tickets) {
         ticketContainer.appendChild(ticketElement);
     });
 }
+async function fetchTickets() {
+    const ticketContainer = document.getElementById('ticket-container');
+    const errorMessage = document.getElementById('error-message');
+    
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        if (!response.ok) {
+            throw new Error('Failed to fetch tickets. Please try again later.');
+        }
+        
+        const tickets = await response.json();
+
+        if (tickets.length === 0) {
+            throw new Error('No unresolved tickets available.');
+        }
+        
+        displayTickets(tickets);
+        
+    } catch (error) {
+        errorMessage.style.display = 'block';
+        errorMessage.textContent = `Error: ${error.message}`;
+    } finally {
+        // Hide loading indicator or perform any cleanup
+        console.log('Fetch operation completed.');
+    }
+}
